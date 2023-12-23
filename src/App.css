@@ -504,14 +504,105 @@ products
 .products {
   padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 18rem));
+  gap: 2rem;
+}
+
+.productCard {
+  height: 24rem;
+  overflow: hidden;
+  transition: transform 0.5s, box-shadow 0.5s;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+      rgba(0, 0, 0, 0.5) 0px 5px 10px;
+  }
 }
 
 .productImg img {
   width: 100%;
+  height: 20rem;
 }
 
+.productInfo {
+  position: relative;
+  width: 200%;
+}
+
+.cartBtns {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  height: 4rem;
+  position: absolute;
+  left: 0;
+  top: -0.25rem;
+  transition: all 0.5s;
+  border-top: 1px solid black;
+  & .addToCart {
+    display: flex;
+    width: 100%;
+
+    & .cardTitle {
+      width: 75%;
+      padding: 0.5rem;
+
+      & h4 {
+        white-space: nowrap;
+        overflow: hidden;
+        margin-bottom: 0.25rem;
+      }
+    }
+    & .addBtn {
+      width: 25%;
+      padding: 0.5rem;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid black;
+      transition: background-color 0.5s;
+      &:hover {
+        background-color: lightgreen;
+      }
+    }
+  }
+  & .removeFromCart {
+    width: 100%;
+    background-color: lightgreen;
+    display: flex;
+    align-items: center;
+
+    & .removeBtn {
+      width: 25%;
+      height: 100%;
+      padding: 0.5rem;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid black;
+      transition: background-color 0.5s, color 0.5s;
+
+      &:hover {
+        background-color: #f00;
+        color: #fff;
+      }
+    }
+
+    & .addedText {
+      width: 75%;
+      padding: 0.5rem;
+      text-align: center;
+    }
+  }
+}
+.cartBtns.true {
+  left: -50%;
+}
 /*
 pagesBtn
 */
