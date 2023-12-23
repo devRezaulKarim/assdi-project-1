@@ -132,6 +132,23 @@ legend {
     transform: translateY(-2px);
   }
 }
+
+.loginForm .pass {
+  width: 100%;
+  position: relative;
+}
+.loginForm .pass input {
+  width: 100%;
+}
+.loginForm .pass span {
+  position: absolute;
+  right: 0.25rem;
+  top: 50%;
+  transform: translateY(-65%);
+  font-size: 1.5rem;
+  color: gray;
+  cursor: pointer;
+}
 .socialLogin {
   position: relative;
   padding-bottom: 0.5rem;
@@ -209,6 +226,28 @@ legend {
 .SignUpPageLoginBtn a {
   background-color: transparent;
   color: blue;
+}
+
+.loginForm form .red {
+  outline: 1px solid red;
+  color: red;
+  animation: shaking 0.1s ease 2;
+}
+
+.loginForm form .message {
+  color: red;
+  animation: shaking 0.1s ease 2;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+@keyframes shaking {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(0.5rem);
+  }
 }
 
 .userListWrapper {

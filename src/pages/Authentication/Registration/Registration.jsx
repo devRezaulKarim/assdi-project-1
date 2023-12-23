@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
 import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGithub,
@@ -8,6 +10,7 @@ import {
 } from "react-firebase-hooks/auth";
 import auth from "../../../Firebase/firebase.init";
 import Spinner from "../../../Utils/Spinner";
+import { useState } from "react";
 
 export default function Registration() {
   let [signInWithGoogle, googleUser, googleLoading, googleError] =
@@ -18,14 +21,24 @@ export default function Registration() {
     useCreateUserWithEmailAndPassword(auth);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const [red, setRed] = useState(false);
+
+  const [showPass, setShowPass] = useState("password");
 
   const signUpData = (data) => {
-    const { username, email, password, confirmPass } = data;
+    const { email, password, confirmPass } = data;
+
     if (password === confirmPass) {
       console.log("pass match");
       createUserWithEmailAndPassword(email, password);
       navigate("/");
-    } else alert("Does not match");
+    } else {
+      setRed(true);
+    }
+  };
+
+  const handleShowPass = () => {
+    setShowPass(showPass === "text" ? "password" : "text");
   };
 
   if (googleError || githubError || error) {
@@ -56,17 +69,30 @@ export default function Registration() {
         >
           <input {...register("username")} placeholder="Username" type="text" />
           <input {...register("email")} placeholder="Email" type="email" />
-          <input
-            {...register("password")}
-            placeholder="Password"
-            type="password"
-          />
-          <input
-            {...register("confirmPass")}
-            placeholder="Confirm Password"
-            type="password"
-          />
+          <div className="pass">
+            <input
+              className={red && "red"}
+              {...register("password")}
+              placeholder="Password"
+              type={showPass}
+            />
+            <span onClick={handleShowPass}>
+              {showPass === "text" ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </span>
+          </div>
 
+          <div className="pass">
+            <input
+              className={red && "red"}
+              {...register("confirmPass")}
+              placeholder="Confirm Password"
+              type={showPass}
+            />
+            <span onClick={handleShowPass}>
+              {showPass === "text" ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </span>
+          </div>
+          {red && <p className={` message`}>Password doesn&#39;t match</p>}
           <input type="submit" value="Sign up" />
         </form>
         <div className="socialLogin">

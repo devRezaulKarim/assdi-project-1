@@ -8,6 +8,8 @@ import {
 } from "react-firebase-hooks/auth";
 import auth from "../../../Firebase/firebase.init";
 import Spinner from "../../../Utils/Spinner";
+import { useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
@@ -16,8 +18,14 @@ export default function Login() {
   const [signInWithGithub, githubUser, githubLoading, githubError] =
     useSignInWithGithub(auth);
 
+  const [showPass, setShowPass] = useState("password");
+
   const loginData = (data) => {
     console.log(data);
+  };
+
+  const handleShowPass = () => {
+    setShowPass(showPass === "text" ? "password" : "text");
   };
 
   if (googleError || githubError) {
@@ -48,12 +56,16 @@ export default function Login() {
           })}
         >
           <input {...register("email")} placeholder="Email" type="email" />
-          <input
-            {...register("password")}
-            placeholder="Password"
-            type="password"
-          />
-
+          <div className="pass">
+            <input
+              {...register("password")}
+              placeholder="Password"
+              type={showPass}
+            />
+            <span onClick={handleShowPass}>
+              {showPass === "text" ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </span>
+          </div>
           <input type="submit" value="Login" />
         </form>
         <div className="socialLogin">
