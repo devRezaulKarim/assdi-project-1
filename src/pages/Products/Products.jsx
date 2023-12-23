@@ -10,7 +10,7 @@ export default function Products() {
   const [pages, setPages] = useState(0);
   const [activePage, setActivePage] = useState(0);
 
-  const productPerPage = 10;
+  const productPerPage = 20;
 
   useEffect(() => {
     setPages(

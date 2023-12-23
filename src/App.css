@@ -522,6 +522,57 @@ products
   }
 }
 
+.detailsContainer {
+  position: absolute;
+  background-color: aqua;
+  width: 130%;
+  height: 125%;
+  top: -100%;
+  right: -100%;
+  display: flex;
+  align-items: end;
+  border-radius: 35%;
+  transition: all 0.5s;
+
+  .description {
+    position: absolute;
+    background-color: rgba(240, 217, 199, 0.85);
+    width: 38%;
+    height: 38.5%;
+    padding: 0.5rem;
+    top: 21rem;
+    left: 8rem;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+  }
+  .iIcon {
+    position: absolute;
+    bottom: 2.2rem;
+    left: 2.8rem;
+    font-size: 2rem;
+    transition: all 0.5s;
+  }
+
+  &:hover {
+    width: 240%;
+    height: 240%;
+    border-radius: 50%;
+    background-color: transparent;
+
+    .iIcon {
+      opacity: 0;
+    }
+    .description {
+      opacity: 1;
+    }
+  }
+}
+.productImg {
+  position: relative;
+  /* overflow: hidden; */
+}
+
 .productImg img {
   width: 100%;
   height: 20rem;
@@ -538,6 +589,7 @@ products
   overflow: hidden;
   height: 4rem;
   position: absolute;
+  background-color: #fff;
   left: 0;
   top: -0.25rem;
   transition: all 0.5s;

@@ -1,21 +1,29 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
+  MdInfo,
   MdOutlineAddShoppingCart,
   MdOutlineRemoveShoppingCart,
-  MdShoppingCartCheckout,
 } from "react-icons/md";
 
 export default function Product({ product }) {
   const { price, category, thumbnail, title, description } = product;
   const [isAdded, setIsAdded] = useState(false);
-  const [isMouseIn, setIsMouseIn] = useState(false);
 
   return (
     <>
       <div className="productCard">
         <div className="productImg">
           <img src={thumbnail} alt={title} />
+
+          <div className="detailsContainer">
+            <div className="description">
+              <p>{description}</p>
+            </div>
+            <div className="iIcon">
+              <MdInfo />
+            </div>
+          </div>
         </div>
         <div className="productInfo">
           <div className={`cartBtns ${isAdded && "true"}`}>
