@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 import {
+  useCreateUserWithEmailAndPassword,
   useSignInWithGithub,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
@@ -9,27 +10,35 @@ import auth from "../../../Firebase/firebase.init";
 import Spinner from "../../../Utils/Spinner";
 
 export default function Registration() {
-  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+  let [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
-  const [signInWithGithub, githubUser, githubLoading, githubError] =
+  let [signInWithGithub, githubUser, githubLoading, githubError] =
     useSignInWithGithub(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   const signUpData = (data) => {
-    console.log(data);
+    const { username, email, password, confirmPass } = data;
+    if (password === confirmPass) {
+      console.log("pass match");
+      createUserWithEmailAndPassword(email, password);
+      navigate("/");
+    } else alert("Does not match");
   };
 
-  if (googleError || githubError) {
+  if (googleError || githubError || error) {
     return (
       <div>
         <p>Error: {googleError?.message ?? githubError?.message}</p>
       </div>
     );
   }
-  if (googleLoading || githubLoading) {
+  if (googleLoading || githubLoading || loading) {
     return <Spinner />;
   }
-  if (googleUser || githubUser) {
+  if (googleUser || githubUser || user) {
     return (
       <div>
         <p>Signed In User: {googleUser?.email ?? githubUser?.email}</p>
