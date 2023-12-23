@@ -83,7 +83,8 @@ a {
   font-weight: 900;
 }
 
-#login {
+#login,
+#signOut {
   margin-right: 0;
 }
 

@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 
 export default function Product({ product }) {
-  const { price, category, thumbnail, title, description } = product;
+  const { price, thumbnail, title, description } = product;
   const [isAdded, setIsAdded] = useState(false);
 
   return (

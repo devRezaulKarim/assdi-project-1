@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import auth from "../../Firebase/firebase.init";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
 export default function Header() {
+  const [user, loading, error] = useAuthState(auth);
+  const [signOut, outLoading, outError] = useSignOut(auth);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -22,9 +26,15 @@ export default function Header() {
         <NavLink to="/users">Users</NavLink>
         <NavLink to="/about">About</NavLink>
         <NavLink to="/contact">Contact</NavLink>
-        <NavLink id="login" to="/authentication/login">
-          Login
-        </NavLink>
+        {user ? (
+          <Link id="signOut" onClick={() => signOut()}>
+            Sign out
+          </Link>
+        ) : (
+          <NavLink id="login" to="/authentication/login">
+            Login
+          </NavLink>
+        )}
       </nav>
     </div>
   );

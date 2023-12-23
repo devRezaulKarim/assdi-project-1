@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import {
+  useSignInWithEmailAndPassword,
   useSignInWithGithub,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
@@ -17,33 +18,37 @@ export default function Login() {
     useSignInWithGoogle(auth);
   const [signInWithGithub, githubUser, githubLoading, githubError] =
     useSignInWithGithub(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
 
   const [showPass, setShowPass] = useState("password");
 
+  const navigate = useNavigate();
+
   const loginData = (data) => {
-    console.log(data);
+    const { email, password } = data;
+    signInWithEmailAndPassword(email, password);
   };
 
   const handleShowPass = () => {
     setShowPass(showPass === "text" ? "password" : "text");
   };
 
-  if (googleError || githubError) {
+  if (googleError || githubError || error) {
     return (
       <div>
-        <p>Error: {googleError?.message ?? githubError?.message}</p>
+        <p>
+          Error:{" "}
+          {googleError?.message ?? githubError?.message ?? error?.message}
+        </p>
       </div>
     );
   }
-  if (googleLoading || githubLoading) {
+  if (googleLoading || githubLoading || loading) {
     return <Spinner />;
   }
-  if (googleUser || githubUser) {
-    return (
-      <div>
-        <p>Signed In User: {googleUser?.email ?? githubUser?.email}</p>
-      </div>
-    );
+  if (googleUser || githubUser || user) {
+    return navigate("/");
   }
 
   return (
