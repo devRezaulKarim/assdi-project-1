@@ -27,6 +27,26 @@ export default function Products() {
 
   return (
     <div>
+      <div className="paginationBtns">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "1rem",
+          }}
+        >
+          {pages.length > 0 &&
+            pages.map((_, i) => (
+              <PaginationBtns
+                key={i}
+                index={i * productPerPage}
+                page={i}
+                setIndex={setIndex}
+                active={{ activePage, setActivePage }}
+              />
+            ))}
+        </div>
+      </div>
       <div className="products">
         {showItem.map((product) => (
           <Product key={product.id} product={product} />
