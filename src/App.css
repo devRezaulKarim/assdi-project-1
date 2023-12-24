@@ -525,7 +525,7 @@ products
 
 .detailsContainer {
   position: absolute;
-  background-color: aqua;
+  background-color: #ae4e38;
   width: 130%;
   height: 125%;
   top: -100%;
@@ -553,13 +553,14 @@ products
     left: 2.8rem;
     font-size: 2rem;
     transition: all 0.5s;
+    color: #fff;
   }
 
   &:hover {
     width: 240%;
     height: 240%;
     border-radius: 50%;
-    background-color: transparent;
+    background-color: rgba(174, 78, 56, 0.5);
 
     .iIcon {
       opacity: 0;
