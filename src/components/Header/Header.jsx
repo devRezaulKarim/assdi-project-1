@@ -35,6 +35,7 @@ export default function Header() {
             Login
           </NavLink>
         )}
+        <span>{user?.displayName || user?.email.slice(0, 6)}</span>
       </nav>
     </div>
   );
